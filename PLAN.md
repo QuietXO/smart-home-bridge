@@ -8,7 +8,7 @@
 | Phase              | Purpose                  | Status |
 |--------------------|--------------------------|--------|
 | 0 Kick‑off         | Repo, board, docs        | ✅ |
-| 1 Local containers | Sim & broker in Docker   | ⬜ |
+| 1 Local containers | Sim & broker in Docker   | 🟡 |
 | 2 Edge VM + broker | Raspberry‑Pi‑like VM     | ⬜ |
 | 3 Storage node     | Pub/Sub + BQ dataset     | ⬜ |
 | 4 Cloud VM & UI    | Aggregator, web, Grafana | ⬜ |
