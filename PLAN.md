@@ -5,20 +5,20 @@
 
 ---
 ## 0‑to‑100 Timeline
-| Phase              | Purpose                  | Status |
-|--------------------|--------------------------|--------|
-| 0 Kick‑off         | Repo, board, docs        | ✅ |
-| 1 Local containers | Sim & broker in Docker   | 🟡 |
-| 2 Edge VM + broker | Raspberry‑Pi‑like VM     | ⬜ |
-| 3 Storage node     | Pub/Sub + BQ dataset     | ⬜ |
-| 4 Cloud VM & UI    | Aggregator, web, Grafana | ⬜ |
-| 5 IaC scripts      | deploy.sh / Terraform    | ⬜ |
-| 6 Load tests       | Locust, Monitoring       | ⬜ |
-| 7 Evaluation       | Graphs, cost calc        | ⬜ |
-| 8 (Opt) GKE        | Autopilot manifests      | ⬜ |
-| 9 Packaging        | Zip, slides, report      | ⬜ |
+| Phase              | Purpose                   | Status |
+|--------------------|---------------------------|:------:|
+| 0 Kick‑off         | Git, Documents, DAG       |   ✅    |
+| 1 Local containers | Sim & broker in Docker    |   🟡    |
+| 2 Edge VM + broker | Raspberry‑Pi‑like VM      |   ⬜    |
+| 3 Storage node     | Pub/Sub + BQ dataset      |   ⬜    |
+| 4 Cloud VM & UI    | Aggregator, web, Grafana  |   ⬜    |
+| 5 IaC scripts      | deploy.sh / Terraform     |   ⬜    |
+| 6 Load tests       | Locust, Monitoring        |   ⬜    |
+| 7 Evaluation       | Graphs, cost calc         |   ⬜    |
+| 8 (Opt) GKE        | Autopilot manifests       |   ⬜    |
+| 9 Packaging        | ZIP, Presentation, Report |   ⬜    |
 
-> **Legend:** done: ✅ | in‑progress: 🟡 | not started: ⬜
+> **Legend:** done: ✅ **||** in‑progress: 🟡 **||** not started: ⬜
 
 ---
 ## Phase‑by‑Phase Checklist
@@ -45,6 +45,10 @@
 - [ ] Pub/Sub topic `iot-ingest` + subscription `iot-bq-sub`.
 - [ ] BigQuery dataset `iot_raw` & table `iot_events` (DAY partition, cluster `sensor_id`).
 - [ ] Secrets in Secret Manager.
+- [ ] **Create bucket** `iot-raw-events-$PROJECT_ID` (regional, Standard)
+- [ ] Add lifecycle delete > 90 days; uniform ACLs
+- [ ] Edge cron: gzip daily JSONL → `gsutil cp raw/YYYY-MM-DD.jsonl.gz`
+- [ ] Cloud Function (or cloud-agg) triggers on `finalize` → bq load
 
 ### Phase 4 — Cloud VM & UI
 - [ ] `cloud-agg` container subscribes & writes via `google-cloud-bigquery`.
