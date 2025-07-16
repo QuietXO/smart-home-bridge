@@ -61,15 +61,47 @@
 - [ ] `destroy.sh` cleanup script.
 - [ ] GitHub Action to lint Terraform / shell.
 
-### Phase 6 — Load‑ & Scale‑Testing
-- [ ] Locust scenarios: 100, 500, 2 000 vUsers.
-- [ ] Monitoring dashboard JSON export.
-- [ ] Autoscaling demo: Cloud Run revision with aggregator.
+### Phase 6 — Load & Scale Testing
+- [ ] **locust/** directory with `locustfile.py` that spawns virtual “sensors”
+- [ ] **locust-runner.sh** script (runs Locust locally *or* in Cloud Run)
+- [ ] Save CSV logs to **results/** for plotting
+- [ ] Locust scenarios: 100, 500, 2 000 vUsers
+- [ ] Monitoring dashboard JSON export
+- [ ] Autoscaling demo: Cloud Run revision with aggregator
 
 ### Phase 7 — Evaluation & Report
-- [ ] Jupyter notebook → latency histogram, throughput vs users chart.
-- [ ] Cloud cost spreadsheet (BQ, Dataflow, VMs).
-- [ ] Draft discussion of bottlenecks, future work.
+#### 7.1 Data ingest
+- [ ] Pull **Locust CSV logs** (`results/*.csv`) into a Jupyter notebook.
+- [ ] Query **Cloud Monitoring API** for:
+  - Pub/Sub backlog age & message count
+  - Dataflow worker-count (autoscaling events)
+  - VM / Cloud-Run CPU % & memory MB
+  - Edge-to-cloud **network latency** (ping RTT *or* Pub/Sub publish-age)
+  - BigQuery streaming-insert latencies
+- [ ] Merge Locust and Monitoring dataframes on timestamp.
+
+#### 7.2 Plots & tables
+- [ ] **Latency CDF / histogram** per test scenario.
+- [ ] **Throughput vs virtual-users** line chart.
+- [ ] **Autoscaling timeline** → number of workers / VM instances over time.
+- [ ] **Resource-utilisation heat-map** (CPU, memory per component).
+- [ ] **Edge-to-cloud latency plot** (RTT or publish-age vs time).
+- [ ] **Cost table** — BQ, Pub/Sub, Dataflow, VMs, Cloud Run; €/1 000 msgs.
+
+#### 7.3 Discussion write-up
+- [ ] Identify primary bottlenecks (CPU, backlog, network).
+- [ ] Analyse autoscaling behaviour (scale-out trigger, cool-down).
+- [ ] Compare cost vs load; €/1 000 msgs at 100, 500, 2 000 vUsers.
+- [ ] Suggest future optimisations (e.g., Storage Write API, HPA tuning).
+
+#### 7.4 Export & integration
+- [ ] Save all plots to `report/assets/`.
+- [ ] Embed figures with captions in `report.md` / LaTeX.
+- [ ] Add **3 evaluation slides** (results, cost, take-aways) to `slides.pptx`.
+
+#### 7.5 Reproducibility check
+- [ ] Re-run notebook on a **fresh clone**; verify plots identical.
+- [ ] Commit notebook as `notebooks/evaluation.ipynb` and lock package versions.
 
 ### Phase 8 — Optional GKE Autopilot
 - [ ] Convert Compose to Kubernetes manifests (Deployment, HPA, Service).
