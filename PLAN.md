@@ -5,18 +5,23 @@
 
 ---
 ## 0‑to‑100 Timeline
-| Phase              | Purpose                   | Status |
-|--------------------|---------------------------|:------:|
-| 0 Kick‑off         | Git, Documents, DAG       |   ✅    |
-| 1 Local containers | Sim & broker in Docker    |   🟡    |
-| 2 Edge VM + broker | Raspberry‑Pi‑like VM      |   ⬜    |
-| 3 Storage node     | Pub/Sub + BQ dataset      |   ⬜    |
-| 4 Cloud VM & UI    | Aggregator, web, Grafana  |   ⬜    |
-| 5 IaC scripts      | deploy.sh / Terraform     |   ⬜    |
-| 6 Load tests       | Locust, Monitoring        |   ⬜    |
-| 7 Evaluation       | Graphs, cost calc         |   ⬜    |
-| 8 (Opt) GKE        | Autopilot manifests       |   ⬜    |
-| 9 Packaging        | ZIP, Presentation, Report |   ⬜    |
+| Phase                     | Purpose                             | Status |
+|---------------------------|-------------------------------------|:------:|
+| 0 Kick‑off                | Git, Documents, DAG                 |   ✅    |
+| 1 Local containers        | Sim & broker in Docker              |   🟡    |
+| 2 Edge VM + broker        | Raspberry‑Pi‑like VM                |   ⬜    |
+| 3 Storage node            | Pub/Sub + BQ dataset                |   ⬜    |
+| 4 Cloud VM & UI           | Aggregator, web, Grafana            |   ⬜    |
+| 5 IaC scripts             | deploy.sh / Terraform               |   ⬜    |
+| 6 Load tests              | Locust, Monitoring                  |   ⬜    |
+| 7 Evaluation              | Graphs of Performance               |   ⬜    |
+| 7.1 Data ingest           | Pull CSV + Monitoring metrics       |   ⬜    |
+| 7.2 Plots & Tables        | Latency / Throughput / Autoscaling  |   ⬜    |
+| 7.3 Discussion write-up   | Bottlenecks, Scaling, Cost analysis |   ⬜    |
+| 7.4 Export & Integration  | Embed figures in report & slides    |   ⬜    |
+| 7.5 Reproducibility check | Notebook rerun on clean repo        |   ⬜    |
+| 8 (Opt) GKE               | Autopilot manifests                 |   ⬜    |
+| 9 Packaging               | ZIP, Presentation, Report           |   ⬜    |
 
 > **Legend:** done: ✅ **||** in‑progress: 🟡 **||** not started: ⬜
 
@@ -80,7 +85,7 @@
   - BigQuery streaming-insert latencies
 - [ ] Merge Locust and Monitoring dataframes on timestamp.
 
-#### 7.2 Plots & tables
+#### 7.2 Plots & Tables
 - [ ] **Latency CDF / histogram** per test scenario.
 - [ ] **Throughput vs virtual-users** line chart.
 - [ ] **Autoscaling timeline** → number of workers / VM instances over time.
@@ -94,7 +99,7 @@
 - [ ] Compare cost vs load; €/1 000 msgs at 100, 500, 2 000 vUsers.
 - [ ] Suggest future optimisations (e.g., Storage Write API, HPA tuning).
 
-#### 7.4 Export & integration
+#### 7.4 Export & Integration
 - [ ] Save all plots to `report/assets/`.
 - [ ] Embed figures with captions in `report.md` / LaTeX.
 - [ ] Add **3 evaluation slides** (results, cost, take-aways) to `slides.pptx`.
