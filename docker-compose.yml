@@ -1,0 +1,32 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports: [ "1883:1883" ]
+
+  edge-sim:
+    build: ./edge-sim
+    environment:
+      - BROKER=mosquitto
+      - TOPIC=lab
+    depends_on: [ mosquitto ]
+
+  cloud-agg:
+    build: ./cloud-agg
+    environment:
+      - BROKER=mosquitto
+      - TOPIC=lab
+    volumes:
+      - ./cloud-agg/iot.db:/app/iot.db
+    depends_on: [ mosquitto ]
+
+  grafana:
+    image: grafana/grafana-oss:10.4.2
+    ports: [ "3000:3000" ]
+    volumes:
+      - ./grafana:/etc/grafana/provisioning
+      - ./cloud-agg/iot.db:/app/iot.db:ro
+    environment:
+      - GF_INSTALL_PLUGINS=frser-sqlite-datasource

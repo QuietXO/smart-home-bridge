@@ -35,11 +35,11 @@
 - [x] Add high‑level cards (Phase 1 … Phase 9).
 
 ### Phase 1 — Local dev & containers
-- [ ] `edge-sim/` Python publisher → Dockerfile.
-- [ ] Mosquitto broker container in `docker-compose.yml`.
-- [ ] SQLite placeholder store.
-- [ ] Grafana+BigQuery plugin via Docker.
-- [ ] Unit tests + `make test`.
+- [x] `edge-sim/` Python publisher → Dockerfile.
+- [x] Mosquitto broker container in `docker-compose.yml`.
+- [x] SQLite placeholder store.
+- [x] Grafana+BigQuery plugin via Docker.
+- [x] Unit tests + `make test`.
 
 ### Phase 2 — Edge VM
 - [ ] Startup script `edge-init.sh` (installs Docker, pulls images, opens ports 1883/8883).

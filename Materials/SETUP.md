@@ -104,3 +104,20 @@ gcloud dataflow flex-template run pubsub-bq-loader \
                 writeDisposition=WRITE_APPEND,\
                 ignoreUnknown=true"
 ```
+
+---
+### Local Debug Notes
+```
+docker compose up --build -d
+docker compose down
+
+docker run --rm --network smart-home-bridge_default \
+  eclipse-mosquitto:2 \
+  mosquitto_sub -h mosquitto -p 1883 -t lab -C 3
+
+sqlite3 cloud-agg/iot.db 'SELECT COUNT(*) FROM iot_events;'
+
+docker compose exec grafana sh -c 'ls -R /etc/grafana/provisioning'
+
+make test
+```
