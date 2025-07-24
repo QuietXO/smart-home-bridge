@@ -28,20 +28,20 @@
 ---
 ## Phase‑by‑Phase Checklist
 
-### Phase 0 — Kick‑off (✅)
+### Phase 0 — Kick‑off
 - [x] Create **private repo** `smart-home-bridge` on GitHub.
 - [x] Add collaborators.
 - [x] Add **README.md**, **diagrams/architecture.png**, this **PLAN.md**.
 - [x] Add high‑level cards (Phase 1 … Phase 9).
 
-### Phase 1 — Local dev & containers (✅)
+### Phase 1 — Local dev & containers
 - [x] `edge-sim/` Python publisher → Dockerfile.
 - [x] Mosquitto broker container in `docker-compose.yml`.
 - [x] SQLite placeholder store.
 - [x] Grafana+BigQuery plugin via Docker.
 - [x] Unit tests + `make test`.
 
-### Phase 2 — Edge VM (✅)
+### Phase 2 — Edge VM
 - [x] Startup script `edge-init.sh` (installs Docker, pulls images, opens ports 1883/8883).
 - [x] Firewall rule tag `mqtt-broker-1883` tag `mqtt-broker`.
 - [x] Systemd health‑check (restarts Mosquitto).
