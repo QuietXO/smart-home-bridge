@@ -1,3 +1,49 @@
+### Phase 2
+```
+gcloud config set project  iot-bridge-lab-466916
+gcloud config set run/region europe-west3
+gcloud services enable compute.googleapis.com storage.googleapis.com
+```
+```
+# edge-init.sh
+set -e
+apt-get update -qq
+apt-get install -y docker.io docker-compose git
+git clone https://github.com/QuietXO/smart-home-bridge.git /opt/bridge
+cd /opt/bridge
+/usr/bin/docker compose up -d mosquitto edge-sim
+
+
+chmod +x edge-init.sh
+gsutil cat gs://iot-edge-scripts-quietxo/edge-init.sh
+```
+```
+gsutil mb -p $(gcloud config get-value project) \
+          -l europe-west3 gs://iot-edge-scripts-$USER
+gsutil cp edge-init.sh gs://iot-edge-scripts-$USER/
+
+gcloud compute instances create edge-vm \
+  --zone=europe-west3-b \
+  --machine-type=e2-small \
+  --metadata startup-script-url=gs://iot-edge-scripts-$USER/edge-init.sh \
+  --tags=mqtt-broker
+```
+```
+gcloud compute firewall-rules create mqtt-broker-1883 \
+  --allow=tcp:1883 \
+  --direction=INGRESS \
+  --target-tags=mqtt-broker \
+  --description="Allow MQTT plain-text"
+
+gcloud compute instances describe edge-vm \
+  --zone=europe-west3-b \
+  --format='value(tags.items[])'
+
+mosquitto_sub -h 35.234.76.35 -p 1883 -t lab -C 1 -v
+nc -zv 35.234.76.35 1883
+```
+---
+
 ### 1. Set the project & default region
 ```
 gcloud config set project iot-bridge-project

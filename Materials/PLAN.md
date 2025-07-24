@@ -8,9 +8,9 @@
 | Phase                     | Purpose                             | Status |
 |---------------------------|-------------------------------------|:------:|
 | 0 Kick‑off                | Git, Documents, DAG                 |   ✅    |
-| 1 Local containers        | Sim & broker in Docker              |   🟡    |
-| 2 Edge VM + broker        | Raspberry‑Pi‑like VM                |   ⬜    |
-| 3 Storage node            | Pub/Sub + BQ dataset                |   ⬜    |
+| 1 Local containers        | Sim & broker in Docker              |   ✅    |
+| 2 Edge VM + broker        | Raspberry‑Pi‑like VM                |   ✅    |
+| 3 Storage node            | Pub/Sub + BQ dataset                |   🟡    |
 | 4 Cloud VM & UI           | Aggregator, web, Grafana            |   ⬜    |
 | 5 IaC scripts             | deploy.sh / Terraform               |   ⬜    |
 | 6 Load tests              | Locust, Monitoring                  |   ⬜    |
@@ -34,17 +34,17 @@
 - [x] Add **README.md**, **diagrams/architecture.png**, this **PLAN.md**.
 - [x] Add high‑level cards (Phase 1 … Phase 9).
 
-### Phase 1 — Local dev & containers
+### Phase 1 — Local dev & containers (✅)
 - [x] `edge-sim/` Python publisher → Dockerfile.
 - [x] Mosquitto broker container in `docker-compose.yml`.
 - [x] SQLite placeholder store.
 - [x] Grafana+BigQuery plugin via Docker.
 - [x] Unit tests + `make test`.
 
-### Phase 2 — Edge VM
-- [ ] Startup script `edge-init.sh` (installs Docker, pulls images, opens ports 1883/8883).
-- [ ] Firewall rule tag `mqtt-edge`.
-- [ ] Systemd health‑check (restarts Mosquitto).
+### Phase 2 — Edge VM (✅)
+- [x] Startup script `edge-init.sh` (installs Docker, pulls images, opens ports 1883/8883).
+- [x] Firewall rule tag `mqtt-broker-1883` tag `mqtt-broker`.
+- [x] Systemd health‑check (restarts Mosquitto).
 
 ### Phase 3 — Storage node (GCP)
 - [ ] Pub/Sub topic `iot-ingest` + subscription `iot-bq-sub`.
